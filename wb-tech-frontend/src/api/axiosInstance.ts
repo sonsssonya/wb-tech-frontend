@@ -3,6 +3,7 @@ import axios from 'axios';
 // Базовый URL берётся из .env (VITE_API_BASE_URL)
 // Пример: https://<your-project-id>.mockapi.io/api/v1
 const baseURL = import.meta.env.VITE_API_BASE_URL as string;
+console.log('baseURL from env:', baseURL);
 
 if (!baseURL) {
   // eslint-disable-next-line no-console

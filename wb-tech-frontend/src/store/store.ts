@@ -9,8 +9,23 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // оставляем, но проверим, что установлен пакет
+// Убираем импорт storage, используем localStorage напрямую
 import usersReducer from './usersSlice';
+
+const storage = {
+  getItem: (key: string) => {
+    const value = localStorage.getItem(key);
+    return Promise.resolve(value);
+  },
+  setItem: (key: string, value: string) => {
+    localStorage.setItem(key, value);
+    return Promise.resolve();
+  },
+  removeItem: (key: string) => {
+    localStorage.removeItem(key);
+    return Promise.resolve();
+  },
+};
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -18,10 +33,8 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: 'root',
-  storage,
-  // Персистим только страницу пагинации — списки и текущий юзер всегда грузим свежими
+  storage, // теперь это наш объект-обёртка
   whitelist: ['users'],
-  blacklist: [], // при желании можно ужать persist только до нужных полей через transform
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
