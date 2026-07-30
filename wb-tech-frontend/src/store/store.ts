@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // localStorage
+import storage from 'redux-persist/lib/storage'; // оставляем, но проверим, что установлен пакет
 import usersReducer from './usersSlice';
 
 const rootReducer = combineReducers({
