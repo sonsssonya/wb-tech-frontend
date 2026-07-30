@@ -63,18 +63,29 @@ const UserFormModal = ({
     };
 
   const handleSubmit = () => {
-    if (!formData.name.trim() || !formData.email.trim()) {
-      setValidationError('Поля "Имя" и "Email" обязательны для заполнения');
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setValidationError('Введите корректный email');
-      return;
-    }
-    setValidationError(null);
-    onSubmit(formData);
+  if (!formData.name.trim() || !formData.email.trim()) {
+    setValidationError('Поля "Имя" и "Email" обязательны для заполнения');
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    setValidationError('Введите корректный email');
+    return;
+  }
+  setValidationError(null);
+
+  // ⬇️ Это и есть ЗАГЛУШКИ ⬇️
+  const dataToSend = {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone || 'не указан',
+    city: formData.city || 'не указан',
+    position: formData.position || 'не указана',
+    avatar: formData.avatar || '',
   };
+
+  onSubmit(dataToSend);
+};
 
   const isEdit = Boolean(initialData);
 
